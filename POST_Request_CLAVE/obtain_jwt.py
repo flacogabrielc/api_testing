@@ -48,4 +48,5 @@ def ob_token(customerId):
 # print("Connection established to: ",data)
 #
 # #Closing the connection
-# conn.close()
+# conn.close(
+# cambio para validar solo una preueba )
