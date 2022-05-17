@@ -1,0 +1,8 @@
+* uso de assert
+* pytest structure
+* search element in response
+* modo test ejecutar con pytest
+* variable de entorno para usar jwt - > with External id
+* parseo Json format - y usar compare con algun resultado
+* ver resultados en allure?
+
