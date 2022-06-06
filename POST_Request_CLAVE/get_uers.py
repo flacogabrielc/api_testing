@@ -13,11 +13,8 @@ url = "https://idm.qa.clave.cloud/api/get_users"
 response = requests.post(url, headers=headersdata, json = data  )
 print(response.text)
 
--- flacogabreielc
--- git config --global user.name "flacogabrielc"
--- git config --global user.email "flacogabrielc@hotmail.com"
-
-
-ssh-keygen -t rsa -b 4096 -C "flacogabrielc@hotmail.com"
-
-git config --global user.email flacogabrielc@hotmail.com
+# flacogabreielc
+#git config --global user.name "flacogabrielc"
+# #git config --global user.email "flacogabrielc@hotmail.com"
+#ssh-keygen -t rsa -b 4096 -C "flacogabrielc@hotmail.com"
+#git config --global user.email flacogabrielc@hotmail.com
