@@ -36,12 +36,14 @@ def test_tc_004_get_idm_users():
 
 # customerId = "19fc2657-85f4-c3fa-f74d-cf37e12e5db9"
 # @pytest.
-def test_tc_005_obtener_token(customerId):
+
+#def test_tc_005_obtener_token(customerId):
+def test_tc_005_obtener_token():
     #customerId = "19fc2657-85f4-c3fa-f74d-cf37e12e5db9"
     headersdata = {'Content-Type': 'application/json'}
 
     data = {
-        "customerExternalId": customerId,
+        "customerExternalId": "19fc2657-85f4-c3fa-f74d-cf37e12e5db9"",
         "ip": "127.0.0.1",
         "hash": "e0d123e5f316bef78bfdf5a008837578",
         "deviceData": "Iphone",
