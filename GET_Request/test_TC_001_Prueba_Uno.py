@@ -1,5 +1,7 @@
 import pytest
 import requests
+#import allure
+
 # Test case code must be written inside a method
 # method name must be started with test
 # si los ejecuto con -v nos muestra el resultado de cada uno ex: pytest -v GET_Request/test_TC_001_Prueba_Uno.py
@@ -43,7 +45,7 @@ def test_tc_005_obtener_token():
     headersdata = {'Content-Type': 'application/json'}
 
     data = {
-        "customerExternalId": "19fc2657-85f4-c3fa-f74d-cf37e12e5db9"",
+        "customerExternalId": "19fc2657-85f4-c3fa-f74d-cf37e12e5db9",
         "ip": "127.0.0.1",
         "hash": "e0d123e5f316bef78bfdf5a008837578",
         "deviceData": "Iphone",
