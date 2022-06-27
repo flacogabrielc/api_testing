@@ -1,4 +1,5 @@
 import requests
+import json
 
 headersdata = {'Authorization':'Bearer CxYDpEomtDPYMfYk5ysVVDWRNkswip9Y','X-Caller-Id':'CLAR','Content-Type':'application/json'}
 #data is the body
@@ -11,7 +12,7 @@ data = {
 url = "https://idm.qa.clave.cloud/api/get_users"
 
 response = requests.post(url, headers=headersdata, json = data  )
-print(response.text)
+print(response.json())
 
 # flacogabreielc
 #git config --global user.name "flacogabrielc"
