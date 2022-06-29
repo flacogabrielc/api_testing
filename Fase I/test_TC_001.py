@@ -2,6 +2,10 @@ import pytest
 import json
 import requests
 
+#asserts
+#marks
+#ejecucion agrupacion
+
 #tener en cuenta que el externalID tiene que estar dado de alta en el idm para poder ejecutar este caso create_user(idm)
 #agregar los nuevos casos para el alta completa
 
