@@ -3,7 +3,8 @@ import requests
 import pytest
 
 # prueba obtener el jwt y usarlo en un test - done
-# usar marquers
+# usar marquers grouping ver video 91 en adelante #tags and execution with tAGS
+
 # agregar assertions
 # ver modos de ejecucion con mas impresion por pantalla
 # una variable global de tipo environment tambien viendo a futuro donde este -> https://api.qa.clave.cloud/, y
