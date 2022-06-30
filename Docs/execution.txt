@@ -1,3 +1,60 @@
-como ejecutar un test suelto dentro de un .py?
+++ python
++++pytest
+++++cucumber
+-m tags (marks)
+
+pytest -s -v -m Smoke
+pytest -s -v -m Smoke test_TC_001.py
+
+ pytest -s -v -m "Smoke" Fase\ I
+hasta el 34 por ahora ok
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+venv/scripts/activate
+source venv/bin/activate
+
+source venva/bin/activate
+despde /Prueba
+
+pytest --html=report.html ./test_TC_001_Prueba_Uno.py
+
+pytest test_xyz.py --alluredir=path_where_you_want_to_save_reports
+
+pytest --alluredir=Reports/ GET_Request/test_TC_001_Prueba_Uno.py
+
+pytest --alluredir=/Users/gabrielcarballo/PycharmProjects/Prueba/allure-report/ GET_Request/test_TC_001_Prueba_Uno.py
+
+pytest --alluredir=Reports/
+
+py.test sample.py --allure_features=feature1,feature2
+
+pytest -s test_TC_001_Prueba_Uno.py
+
+-s
+
+desinstalar todos los paquetes
+pip freeze | xargs pip uninstall -y
+
+pip uninstall paquete
 
 
+pytest: error: unrecognized arguments: --html=report.html
+en este error tener en cuenta que pueden ser 2 cosas,
+1 o no esta instaldo con pip el paquete o esta mal alguna refrencia
+en la env compilador de python, como consejo cambiarla por una que funcione
+o generar un venv nuevo
+
+
+simple git
+https://rogerdudler.github.io/git-guide/
+
+https://git-scm.com/book/en/v2
+
+next level with allure
+https://qxf2.com/blog/allure-integration-with-pytest/
+
+https://docs.qameta.io/allure/
+
+como hacer merges
+https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request
