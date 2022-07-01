@@ -3,7 +3,10 @@ import requests
 import pytest
 
 # prueba obtener el jwt y usarlo en un test - done
-# usar marquers grouping ver video 91 en adelante #tags and execution with tAGS
+# usar marquers grouping ver video 91 en adelante #tags and execution with tAGS done
+
+#execute code before and after pytest Fixtures
+
 
 # agregar assertions
 # ver modos de ejecucion con mas impresion por pantalla
