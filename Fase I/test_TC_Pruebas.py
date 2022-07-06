@@ -37,14 +37,20 @@ def obtener_jwt():
 # jotaw = test_obtener_jwt()
 # print(jotaw)
 
-def test_tc_006_consultar_saldos():
+def test_tc_004_gen_cupon_dep():
     jotaw = obtener_jwt()
+    headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
-    headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE', 'jwt': jotaw, 'customerExternalId': userID}
+    data = {
+        "customerExternalId": userID,
+        "type": "DEPOSIT",
+        "transactionChannelTypeId": 2,
+        "currencyCode": "ARS"}
 
-    url = "https://api.qa.clave.cloud/core/customer/19fc2657-85f4-c3fa-f74d-cf37e12e5db9/balances"
+    url = "https://api.qa.clave.cloud/gateway/vouchers"
+    response = requests.post(url, headers=headersdata, json=data)
 
-    response = requests.get(url, headers=headersdata)
-    response_json = response.json()
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
