@@ -3,15 +3,16 @@ import requests
 import pytest
 
 # prueba obtener el jwt y usarlo en un test - done
-# usar marquers grouping ver video 91 en adelante #tags and execution with tAGS done
-
+# usar marquers grouping ver video 91 en adelante #tags and execution with tAGS - done
+# choose 10!
+# reporting + screenshots
 #execute code before and after pytest Fixtures
-
-
 # agregar assertions
 # ver modos de ejecucion con mas impresion por pantalla
 # una variable global de tipo environment tambien viendo a futuro donde este -> https://api.qa.clave.cloud/, y
 # las otras refes a Qa o el ambiente que tenga que ser
+# nomenclatura de los casos asociados a historias
+
 
 userID = '19fc2657-85f4-c3fa-f74d-cf37e12e5db9'
 
