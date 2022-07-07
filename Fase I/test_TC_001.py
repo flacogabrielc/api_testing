@@ -46,7 +46,7 @@ def test_tc_001_alta_cliente():
     response_json = response.json()
     print(response_json)
 
-
+#@pytest.mark.Gabo
 def test_tc_002_cons_pro_alta():
     # tener en cuenta que lo que se envia luego del processes es el encode ky
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -58,7 +58,7 @@ def test_tc_002_cons_pro_alta():
     response_json = response.json()
 
 
-@pytest.mark.Flaco
+
 def test_tc_003_cons_cliente():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -289,7 +289,6 @@ def test_tc_016_agendar_cuent_to_trans():
     assert response.status_code == 200
 
 
-
 def test_tc_017_cons_ag_cuen_transf():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -482,6 +481,7 @@ def test_tc_027_comp_rec():
 
     response = requests.get(url, headers=headersdata)
     response_json = response.json()
+    assert response.status_code == 200
 
 #@pytest.mark.Gabo
 def test_tc_028_pay_rec_phone():
@@ -556,6 +556,7 @@ def test_tc_030_get_voucher():
 
     response = requests.get(url, headers=headersdata)
     response_json = response.json()
+    assert response.status_code == 200
 
 #@pytest.mark.Gabo
 def test_tc_031_alta_cred():
@@ -585,6 +586,7 @@ def test_tc_032_cons_est_cred():
 
     response = requests.get(url, headers=headersdata)
     response_json = response.json()
+    assert response.status_code == 200
 
 
 def test_tc_033_cons_card_fis():
@@ -619,7 +621,7 @@ def test_tc_034_alta_tar_fis():
 
     url = "https://api.qa.clave.cloud/gateway/mocks/cards"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
 
 
 def test_tc_035_consulta_tarjeta():
@@ -687,7 +689,7 @@ def test_tc_038_baj_tarj():
 
     response = response.post(url, headers=headersdata, json=data)
 
-@pytest.mark.Gabo
+
 def test_tc_039_get_sens_data():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -704,15 +706,16 @@ def test_tc_039_get_sens_data():
 def test_tc_040_get_act_form():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID}
 
-    url = "https://api.qa.clave.cloud/gateway/mocks/cards/be8d9a60-0f2b-4ff4-960c-bbe19a77af3f/enable_card_frame"
+    url = "https://api.qa.clave.cloud/cards/crd-27WRwapwZmGtohmNSTx9X0lOpcS/enable_card_frame"
 
-    response = response.get(url, headers=headersdata)
+    response = requests.get(url, headers=headersdata)
     response_json = response.json()
+    assert response.status_code == 400
 
-
+#@pytest.mark.Gabo
 def test_tc_041_cod_val_send_email():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -728,17 +731,17 @@ def test_tc_041_cod_val_send_email():
 
     url = "https://api.qa.clave.cloud/validation/send"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
 
 
 def test_tc_042_cod_val_send_sms():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7', 'Content-Type': 'application/json'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
     data = {
-        "to": "+541154651174",
+        "to": "+541131099717",
         "type": "SMS",
         "client": "CLAVE"
 
@@ -746,9 +749,10 @@ def test_tc_042_cod_val_send_sms():
 
     url = "https://api.qa.clave.cloud/validation/send"
 
-    responser = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 200
 
-
+#@pytest.mark.Gabo
 def test_tc_043_cod_val_validate():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -763,21 +767,20 @@ def test_tc_043_cod_val_validate():
 
     url = "https://api.qa.clave.cloud/validation/validate"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
 
 
 def test_tc_044_enr_dat():
     jotaw = obtener_jwt()
-    headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7'}
+    headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE'}
 
     url = "https://api.qa.clave.cloud/identity-service/v2/person/6503558/N"
 
-    response = response.get(url, headers=headersdata)
+    response = requests.get(url, headers=headersdata)
     response_json = response.json()
+    assert response.status_code == 200
 
-
+#@pytest.mark.Gabo
 def test_tc_045_get_jwt_token():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -794,9 +797,9 @@ def test_tc_045_get_jwt_token():
 
     url = "https://api.qa.clave.cloud/client/jwt/"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
 
-
+#@pytest.mark.Gabo
 def test_tc_046_val_extid():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -810,4 +813,4 @@ def test_tc_046_val_extid():
 
     url = "https://api.qa.clave.cloud/client/jwt/validate"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
