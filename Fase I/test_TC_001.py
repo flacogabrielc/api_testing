@@ -57,6 +57,7 @@ def test_tc_002_cons_pro_alta():
     response = requests.get(url, headers=headersdata)
     response_json = response.json()
 
+
 @pytest.mark.Flaco
 def test_tc_003_cons_cliente():
     jotaw = obtener_jwt()
@@ -117,7 +118,7 @@ def test_tc_006_consultar_saldos():
                    'jwt': jotaw,
                    'customerExternalId': userID}
 
-    #url = "https://api.qa.clave.cloud/core/customer/'userID'/balances"
+    # url = "https://api.qa.clave.cloud/core/customer/'userID'/balances"
     url = f'https://api.qa.clave.cloud/core/customer/{userID}/balances'
 
     response = requests.get(url, headers=headersdata)
@@ -133,14 +134,13 @@ def test_tc_007_consultar_sdo_token():
                    'jwt': jotaw,
                    'customerExternalId': userID}
 
-
     url = f'https://api.qa.clave.cloud/investors/v1/balance/{userID}'
 
     response = requests.get(url, headers=headersdata)
     response_json = response.json()
 
     assert response.status_code == 200
-    #assert response.headers["Content-Type"] == "application/json"
+    # assert response.headers["Content-Type"] == "application/json"
 
 
 def test_tc_008_cons_op_enr_customer():
@@ -176,7 +176,6 @@ def test_tc_010_cons_por_cust():
                    'jwt': jotaw,
                    'customerExternalId': userID}
 
-
     url = f'https://api.qa.clave.cloud/core/operation/find_by_customer/{userID}'
 
     response = requests.get(url, headers=headersdata)
@@ -200,12 +199,12 @@ def test_tc_011_cons_op_frec():
 def test_tc_012_cons_cont_frec():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                    'jwt': jotaw,
-                    'customerExternalId': userID}
+                   'jwt': jotaw,
+                   'customerExternalId': userID}
 
     url = f'https://api.qa.clave.cloud/asset/customer/{userID}/frequent_addresses'
 
-    #url = f'https://api.qa.clave.cloud/core/operation/frequent_by_customer/{userID}'
+    # url = f'https://api.qa.clave.cloud/core/operation/frequent_by_customer/{userID}'
     response = requests.get(url, headers=headersdata)
     response_json = response.json()
     assert response.status_code == 200
@@ -263,18 +262,19 @@ def test_tc_015_env_din():
 
     # response_json = requests.json()
 
-@pytest.mark.Gabo
+
+# tener en cuenta que el cbu debe cambiar en cada corrida
 def test_tc_016_agendar_cuent_to_trans():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7', 'Content-Type': 'application/json'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
     data = {
-        "owner": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
+        "owner": "69bf92ce-8619-dccd-1c83-66d49d04faee",
         "accountType": "Caja de ahorro en pesos",
         "accountNumber": "8393/37",
-        "cbu": "0000000000000000000001",
+        "cbu": "0000009090000000900001",
         "alias": "evampiros.vilma.palma.",
         "bankName": "Galicia",
         "remitter": "Juan Martin",
@@ -284,22 +284,25 @@ def test_tc_016_agendar_cuent_to_trans():
 
     url = "https://api.qa.clave.cloud/asset/banksbook"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
     # response_json = requests.json()
+    assert response.status_code == 200
+
 
 
 def test_tc_017_cons_ag_cuen_transf():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   '"jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID}
 
-    url = "https://api.qa.clave.cloud/asset/banksbook?externalId=c27ed8c7-ed0e-4c7e-826e-a8e345190aa7"
+    url = f"https://api.qa.clave.cloud/asset/banksbook?externalId={userID}"
 
-    response = response.get(ur, headers=headersdata)
+    response = requests.get(url, headers=headersdata)
     response_json = response.json()
+    assert response.status_code == 200
 
-
+@pytest.mark.Gabo
 def test_tc_018_ret_por_trans():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -320,7 +323,7 @@ def test_tc_018_ret_por_trans():
             }
 
     url = "https://api.qa.clave.cloud/core/operation"
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
 
 
 def test_tc_019_valid_account():
