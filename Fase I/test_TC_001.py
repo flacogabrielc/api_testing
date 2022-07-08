@@ -814,3 +814,7 @@ def test_tc_046_val_extid():
     url = "https://api.qa.clave.cloud/client/jwt/validate"
 
     response = requests.post(url, headers=headersdata, json=data)
+
+
+#reversas
+#card 104 105 106 107 108 112
