@@ -818,3 +818,387 @@ def test_tc_046_val_extid():
 
 #reversas
 #card 104 105 106 107 108 112
+
+#104 reversa extracash
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:/pomelo-adapter/transactions/authorizations" \
+#    -H "x-idempotency-key:test-idempotency-key-11" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444959" \
+#    -d \
+# '{
+# "transaction": {
+# "id": "ctx-200kXoaEJLNzcsvNxY1pmBO7GGJ",
+# "country_code": "ARG",
+# "type": "EXTRACASH",
+# "point_type": "POS",
+# "entry_mode": "MAG_STRIPE",
+# "origin": "DOMESTIC",
+# "local_date_time": "2022-07-07T12:45:00",
+# "original_transaction_id": null
+# },
+# "merchant": {
+# "id": "ABC123TESTMTF19",
+# "mcc": "5999",
+# "address": null,
+# "name": "Misc Retail"
+# },
+# "card": {
+# "id": "crd-2B2I6c1m9wf9io7l4mASxdkAodJ",
+# "product_type": "PREPAID",
+# "provider": "MASTERCARD",
+# "last_four": "6997"
+# },
+# "user": {
+# "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+# },
+# "amount": {
+# "local": {
+# "total": 1350.0,
+# "currency": "ARS"
+# },
+# "transaction": {
+# "total": 135000000.0,
+# "currency": "ARS"
+# },
+# "settlement": {
+# "total": 150.0,
+# "currency": "USD"
+# },
+# "details": [
+# {
+# "type": "EXTRACASH",
+# "currency": "ARS",
+# "amount": 500.0,
+# "name": "EXTRACASH"
+# },
+# {
+# "type": "BASE",
+# "currency": "ARS",
+# "amount": 13000.0,
+# "name": "BASE"
+# }
+# ]
+# }
+# }' \
+#  'https://pomelo-adapter.qa.clave.cloud/transactions/authorizations'
+
+#105 Reversa compras
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "x-apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:/pomelo-adapter/transactions/authorizations" \
+#    -H "x-idempotency-key:test-idempotency-key-53" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444959" \
+#    -d \
+# '{
+# "transaction": {
+# "id": "ctx-27WnxhnJ8787hV1XvLib316",
+# "country_code": "ARG",
+# "type": "PURCHASE",
+# "point_type": "ECOMMERCE",
+# "entry_mode": "MANUAL",
+# "origin": "DOMESTIC",
+# "local_date_time" : "2022-04-08T19:09:16",
+# "original_transaction_id": null
+# },
+# "merchant": {
+# "id": "111111111111111",
+# "mcc": "5045",
+# "address": null,
+# "name": "Computer Software"
+# },
+# "card": {
+# "id": "crd-2B2I6c1m9wf9io7l4mASxdkAodJ",
+# "product_type": "PREPAID",
+# "provider": "MASTERCARD",
+# "last_four": "6997"
+# },
+# "user": {
+# "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+# },
+# "amount": {
+# "local": {
+# "total": 10.0,
+# "currency": "ARS"
+# },
+# "transaction": {
+# "total": 990.0,
+# "currency": "ARS"
+# },
+# "settlement": {
+# "total": 11.0,
+# "currency": "USD"
+# },
+# "details": [
+# {
+# "type": "BASE",
+# "currency": "ARS",
+# "amount": 990.0,
+# "name": "BASE"
+# }
+# ]
+# }
+# }' \
+#  'https://pomelo-adapter.qa.clave.cloud/transactions/authorizations'
+
+#106 reversa extraccion
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "x-apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:/pomelo-adapter/transactions/authorizations" \
+#    -H "x-idempotency-key:test-idempotency-key-66" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444961" \
+#    -d \
+# '{
+# "transaction": {
+# "id": "ctx-test-withdrawal-017",
+# "country_code": "ARG",
+# "type": "WITHDRAWAL",
+# "point_type": "POS",
+# "entry_mode": "MAG_STRIPE",
+# "origin": "DOMESTIC",
+# "local_date_time" : "2022-07-07T12:45:00",
+# "original_transaction_id": null
+# },
+# "merchant": {
+# "id": "ID-Code06      ",
+# "mcc": "6011",
+# "address": null,
+# "name": "Automated Cash Disb"
+# },
+# "card": {
+# "id": "crd-2B2I6c1m9wf9io7l4mASxdkAodJ",
+# "product_type": "PREPAID",
+# "provider": "MASTERCARD",
+# "last_four": "6997"
+# },
+# "user": {
+# "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+# },
+# "amount": {
+# "local": {
+# "total": 200.0,
+# "currency": "ARS"
+# },
+# "transaction": {
+# "total": 10000.0,
+# "currency": "ARS"
+# },
+# "settlement": {
+# "total": 8.0,
+# "currency": "USD"
+# },
+# "details": [
+# {
+# "type": "BASE",
+# "currency": "ARS",
+# "amount": 1000000000.0,
+# "name": "BASE"
+# }
+# ]
+# }
+# }' \
+#  'https://pomelo-adapter.qa.clave.cloud/transactions/authorizations'
+
+#107 REversa refound
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:https://pomelo-adapter.qa.clave.cloud/transactions/adjustments/debit" \
+#    -H "x-idempotency-key:test-idempotency-key-13" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444963" \
+#    -d \
+# '{
+# "transaction": {
+# "id": "ctx-200kXoaEJLNzcsvNxY1pmBO7136",
+# "country_code": "ARG",
+# "type": "REVERSAL_REFUND",
+# "point_type": "POS",
+# "entry_mode": "MAG_STRIPE",
+# "origin": "DOMESTIC",
+# "local_date_time": "2022-04-05T12:45:00",
+# "original_transaction_id": null
+# },
+# "merchant": {
+# "id": "ABC123TESTMTF19",
+# "mcc": "5999",
+# "address": null,
+# "name": "Misc Retail"
+# },
+# "card": {
+# "id": "crd-2B2I6c1m9wf9io7l4mASxdkAodJ",
+# "product_type": "PREPAID",
+# "provider": "MASTERCARD",
+# "last_four": "6997"
+# },
+# "user": {
+# "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+# },
+# "amount": {
+# "local": {
+# "total": 1000.0,
+# "currency": "ARS"
+# },
+# "transaction": {
+# "total": 135000000.0,
+# "currency": "ARS"
+# },
+# "settlement": {
+# "total": 150.0,
+# "currency": "USD"
+# },
+# "details": [
+# {
+# "type": "REVERSAL_REFUND",
+# "currency": "ARS",
+# "amount": 500.0,
+# "name": "REVERSAL_REFUND"
+# },
+# {
+# "type": "BASE",
+# "currency": "ARS",
+# "amount": 13000.0,
+# "name": "BASE"
+# }
+# ]
+# }
+# }' \
+#  'https://pomelo-adapter.qa.clave.cloud/transactions/adjustments/debit'
+
+#108 reversa de payment
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:https://pomelo-adapter.qa.clave.cloud/transactions/adjustments/debit" \
+#    -H "x-idempotency-key:test-idempotency-key-11" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444960" \
+#    -d \
+# '{
+# "transaction": {
+# "id": "ctx-200kXoaEJLNzcsvNxY1pmBO7141",
+# "country_code": "ARG",
+# "type": "REVERSAL_PAYMENT",
+# "point_type": "POS",
+# "entry_mode": "MAG_STRIPE",
+# "origin": "DOMESTIC",
+# "local_date_time": "2022-04-05T12:45:00",
+# "original_transaction_id": null
+# },
+# "merchant": {
+# "id": "ABC123TESTMTF19",
+# "mcc": "5999",
+# "address": null,
+# "name": "Misc Retail"
+# },
+# "card": {
+# "id": "crd-2B2I6c1m9wf9io7l4mASxdkAodJ",
+# "product_type": "PREPAID",
+# "provider": "MASTERCARD",
+# "last_four": "6997"
+# },
+# "user": {
+# "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+# },
+# "amount": {
+# "local": {
+# "total": 1000.0,
+# "currency": "ARS"
+# },
+# "transaction": {
+# "total": 135000000.0,
+# "currency": "ARS"
+# },
+# "settlement": {
+# "total": 150.0,
+# "currency": "USD"
+# },
+# "details": [
+# {
+# "type": "REVERSAL_PAYMENT",
+# "currency": "ARS",
+# "amount": 500.0,
+# "name": "REVERSAL_PAYMENT"
+# },
+# {
+# "type": "BASE",
+# "currency": "ARS",
+# "amount": 13000.0,
+# "name": "BASE"
+# }
+# ]
+# }
+# }' \
+#  'https://pomelo-adapter.qa.clave.cloud/transactions/adjustments/debit'
+
+#112 transaccion inexistente
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:https://pomelo-adapter.qa.clave.cloud/cards//transactions/adjustments/credit" \
+#    -H "x-idempotency-key:1234514" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444961" \
+#    -d \
+# '{
+# "transaction": {
+# "id": "ctx-200kXoaEJLNzcsvNxY1pmBO7128",
+# "country_code": "ARG",
+# "type": "REVERSAL_EXTRACASH",
+# "point_type": "POS",
+# "entry_mode": "MAG_STRIPE",
+# "origin": "DOMESTIC",
+# "local_date_time": "2022-07-07T12:45:00",
+# "original_transaction_id": "dtx-200kXoaEJLNzcsvNxY1pmBO7GGI"
+# },
+# "merchant": {
+# "id": "ABC123TESTMTF19",
+# "mcc": "5999",
+# "address": null,
+# "name": "Misc Retail"
+# },
+# "card": {
+# "id": "crd-2B2I6c1m9wf9io7l4mASxdkAodJ",
+# "product_type": "PREPAID",
+# "provider": "MASTERCARD",
+# "last_four": "6997"
+# },
+# "user": {
+# "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+# },
+# "amount": {
+# "local": {
+# "total": 1000.0,
+# "currency": "ARS"
+# },
+# "transaction": {
+# "total": 135000000.0,
+# "currency": "ARS"
+# },
+# "settlement": {
+# "total": 150.0,
+# "currency": "USD"
+# },
+# "details": [
+# {
+# "type": "EXTRACASH",
+# "currency": "ARS",
+# "amount": 500.0,
+# "name": "EXTRACASH"
+# },
+# {
+# "type": "BASE",
+# "currency": "ARS",
+# "amount": 13000.0,
+# "name": "BASE"
+# }
+# ]
+# }
+# }' \
+#  'https://pomelo-adapter.qa.clave.cloud/transactions/adjustments/credit'
