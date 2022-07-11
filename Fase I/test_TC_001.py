@@ -2,6 +2,7 @@ import pytest
 import json
 import requests
 
+# ver como agregar una validacion que cuando el assert no es correcto imprima lo que devuelve
 # execute like pytest -s -v test_TC_Pruebas.py
 # with marks pytest -s -v -m Smoke test_TC_Pruebas.py
 # asserts
@@ -57,8 +58,7 @@ def test_tc_002_cons_pro_alta():
     response = requests.get(url, headers=headersdata)
     response_json = response.json()
 
-
-
+@pytest.mark.Smoke
 def test_tc_003_cons_cliente():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -71,7 +71,7 @@ def test_tc_003_cons_cliente():
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
 
-
+@pytest.mark.Smoke
 def test_tc_004_gen_cupon_dep():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -90,7 +90,7 @@ def test_tc_004_gen_cupon_dep():
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
 
-
+@pytest.mark.Smoke
 def test_tc_005_gen_cupon_ret():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -111,7 +111,7 @@ def test_tc_005_gen_cupon_ret():
     assert response.headers["Content-Type"] == "application/json"
 
 
-# @pytest.mark.Gabo
+@pytest.mark.Smoke
 def test_tc_006_consultar_saldos():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -127,7 +127,7 @@ def test_tc_006_consultar_saldos():
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
 
-
+@pytest.mark.Smoke
 def test_tc_007_consultar_sdo_token():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -142,7 +142,7 @@ def test_tc_007_consultar_sdo_token():
     assert response.status_code == 200
     # assert response.headers["Content-Type"] == "application/json"
 
-
+@pytest.mark.Smoke
 def test_tc_008_cons_op_enr_customer():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -155,7 +155,7 @@ def test_tc_008_cons_op_enr_customer():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_009_cons_op_por_op():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -169,7 +169,7 @@ def test_tc_009_cons_op_por_op():
     assert response.status_code == 200
     # buscar por id de operacion "operation" se puede validar por varias.
 
-
+@pytest.mark.Smoke
 def test_tc_010_cons_por_cust():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -182,7 +182,7 @@ def test_tc_010_cons_por_cust():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_011_cons_op_frec():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -195,7 +195,7 @@ def test_tc_011_cons_op_frec():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_012_cons_cont_frec():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -209,7 +209,7 @@ def test_tc_012_cons_cont_frec():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_013_cons_bancos():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -221,7 +221,7 @@ def test_tc_013_cons_bancos():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_014_cons_suc():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -234,7 +234,7 @@ def test_tc_014_cons_suc():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_015_env_din():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -264,6 +264,7 @@ def test_tc_015_env_din():
 
 
 # tener en cuenta que el cbu debe cambiar en cada corrida
+@pytest.mark.Smoke
 def test_tc_016_agendar_cuent_to_trans():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -274,7 +275,7 @@ def test_tc_016_agendar_cuent_to_trans():
         "owner": "69bf92ce-8619-dccd-1c83-66d49d04faee",
         "accountType": "Caja de ahorro en pesos",
         "accountNumber": "8393/37",
-        "cbu": "0000009090000000900001",
+        "cbu": "0000109090000000900001",
         "alias": "evampiros.vilma.palma.",
         "bankName": "Galicia",
         "remitter": "Juan Martin",
@@ -288,7 +289,7 @@ def test_tc_016_agendar_cuent_to_trans():
     # response_json = requests.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_017_cons_ag_cuen_transf():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -324,7 +325,7 @@ def test_tc_018_ret_por_trans():
     url = "https://api.qa.clave.cloud/core/operation"
     response = requests.post(url, headers=headersdata, json=data)
 
-
+@pytest.mark.Smoke
 def test_tc_019_valid_account():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -337,7 +338,7 @@ def test_tc_019_valid_account():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_020_rank_empr():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -350,7 +351,7 @@ def test_tc_020_rank_empr():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_021_pago_serv_s_fac_cc():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -364,6 +365,7 @@ def test_tc_021_pago_serv_s_fac_cc():
     assert response.status_code == 200
     #por ahora usamos este porque no tiene referencia alguna
 
+@pytest.mark.Smoke
 def test_tc_022_pago_serv_s_fac_mp():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -376,7 +378,7 @@ def test_tc_022_pago_serv_s_fac_mp():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_023_pago_serv_s_fac_cf():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -424,7 +426,7 @@ def test_tc_024_pago_serv_s_fac():
     response = response.post(url, headers=headersdata, json=data)
     # response_json = response.json()
 
-
+@pytest.mark.Smoke
 def test_tc_025_bar_cod_read():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -470,7 +472,7 @@ def test_tc_026_serv_pay_bar_cod():
 
     response = response.post(url, headers=headersdata, json=data)
 
-
+@pytest.mark.Smoke
 def test_tc_027_comp_rec():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -545,7 +547,7 @@ def test_tc_029_pay_rec_cable():
 
     response = response.post(url, headers=headersdata, json=data)
 
-
+@pytest.mark.Smoke
 def test_tc_030_get_voucher():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -575,7 +577,7 @@ def test_tc_031_alta_cred():
 
     response = response.post(url, headers=headersdata, json=data)
 
-
+@pytest.mark.Smoke
 def test_tc_032_cons_est_cred():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -588,7 +590,7 @@ def test_tc_032_cons_est_cred():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_033_cons_card_fis():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -623,7 +625,7 @@ def test_tc_034_alta_tar_fis():
 
     response = requests.post(url, headers=headersdata, json=data)
 
-
+@pytest.mark.Smoke
 def test_tc_035_consulta_tarjeta():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -689,7 +691,7 @@ def test_tc_038_baj_tarj():
 
     response = response.post(url, headers=headersdata, json=data)
 
-
+@pytest.mark.Smoke
 def test_tc_039_get_sens_data():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -702,7 +704,7 @@ def test_tc_039_get_sens_data():
     response_json = response.json()
     assert response.status_code == 200
 
-
+@pytest.mark.Smoke
 def test_tc_040_get_act_form():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -733,7 +735,7 @@ def test_tc_041_cod_val_send_email():
 
     response = requests.post(url, headers=headersdata, json=data)
 
-
+@pytest.mark.Smoke
 def test_tc_042_cod_val_send_sms():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -769,7 +771,7 @@ def test_tc_043_cod_val_validate():
 
     response = requests.post(url, headers=headersdata, json=data)
 
-
+@pytest.mark.Smoke
 def test_tc_044_enr_dat():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE'}
