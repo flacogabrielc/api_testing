@@ -3,7 +3,6 @@ import json
 import requests
 import random
 
-
 # ver como agregar una validacion que cuando el assert no es correcto imprima lo que devuelve
 # execute like pytest -s -v test_TC_Pruebas.py
 # with marks pytest -s -v -m Smoke test_TC_Pruebas.py
@@ -12,8 +11,6 @@ import random
 # ejecucion agrupacion
 # tener en cuenta que el externalID tiene que estar dado de alta en el -  idm para poder ejecutar este caso create_user(idm)
 # agregar los nuevos casos para el alta completa
-
-
 userID = '19fc2657-85f4-c3fa-f74d-cf37e12e5db9'
 
 
@@ -266,7 +263,7 @@ def test_tc_015_env_din():
 
 
 # tener en cuenta que el cbu debe cambiar en cada corrida
-@pytest.mark.Gabo
+@pytest.mark.Smoke
 def test_tc_016_agendar_cuent_to_trans():
     jotaw = obtener_jwt()
     cebeu = random.randint(1000000000000000000001, 9999999999999999999999)
@@ -307,15 +304,15 @@ def test_tc_017_cons_ag_cuen_transf():
     response_json = response.json()
     assert response.status_code == 200
 
-#@pytest.mark.Gabo
+@pytest.mark.Smoke
 def test_tc_018_ret_por_trans():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7', 'Content-Type': 'application/json'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
-    data = {"sourceCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
-            "destinationCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
+    data = {"sourceCustomerExternalId": userID,
+            "destinationCustomerExternalId": userID,
             "operationTypeId": 4,
             "performerUser": "marceu",
             "sourceAmount": 5.12,
@@ -329,6 +326,7 @@ def test_tc_018_ret_por_trans():
 
     url = "https://api.qa.clave.cloud/core/operation"
     response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 202
 
 @pytest.mark.Smoke
 def test_tc_019_valid_account():
@@ -396,16 +394,17 @@ def test_tc_023_pago_serv_s_fac_cf():
     response_json = response.json()
     assert response.status_code == 200
 
-#@pytest.mark.Gabo
+@pytest.mark.Smoke
+#tener en cuenta que para python null = None
 def test_tc_024_pago_serv_s_fac():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7', 'Content-Type': 'application/json'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
     data = {
-        "sourceCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
-        "destinationCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
+        "sourceCustomerExternalId": userID,
+        "destinationCustomerExternalId": userID,
         "operationTypeId": 7,
         "performerUser": "marceu",
         "sourceAmount": 77.67,
@@ -418,8 +417,8 @@ def test_tc_024_pago_serv_s_fac():
             "paymentModeId": "39030785707000000527",
             "barcode": "007401180041464561000000007767265DLC053818020000000000776718117000417",
             "amountType": "ESC",
-            "expirationDate": null,
-            "reference": null,
+            "expirationDate": None,
+            "reference": None,
             "hash": "1O3x_f-Qbeh4xH8moc1vO58ES0zJs5cLFyDq9kXx9kY",
             "type": "fetchedBill"
         }
@@ -428,8 +427,8 @@ def test_tc_024_pago_serv_s_fac():
 
     url = "https://api.qa.clave.cloud/core/operation"
 
-    response = response.post(url, headers=headersdata, json=data)
-    # response_json = response.json()
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 202
 
 @pytest.mark.Smoke
 def test_tc_025_bar_cod_read():
