@@ -1,6 +1,8 @@
 import pytest
 import json
 import requests
+import random
+
 
 # ver como agregar una validacion que cuando el assert no es correcto imprima lo que devuelve
 # execute like pytest -s -v test_TC_Pruebas.py
@@ -264,9 +266,12 @@ def test_tc_015_env_din():
 
 
 # tener en cuenta que el cbu debe cambiar en cada corrida
-@pytest.mark.Smoke
+@pytest.mark.Gabo
 def test_tc_016_agendar_cuent_to_trans():
     jotaw = obtener_jwt()
+    cebeu = random.randint(1000000000000000000001, 9999999999999999999999)
+
+    # agregar un random al cbu
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
                    'jwt': jotaw,
                    'customerExternalId': userID, 'Content-Type': 'application/json'}
@@ -275,7 +280,7 @@ def test_tc_016_agendar_cuent_to_trans():
         "owner": "69bf92ce-8619-dccd-1c83-66d49d04faee",
         "accountType": "Caja de ahorro en pesos",
         "accountNumber": "8393/37",
-        "cbu": "0000109090000000900001",
+        "cbu": cebeu,
         "alias": "evampiros.vilma.palma.",
         "bankName": "Galicia",
         "remitter": "Juan Martin",
