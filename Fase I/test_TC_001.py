@@ -443,16 +443,16 @@ def test_tc_025_bar_cod_read():
     response_json = response.json()
     assert response.status_code == 200
 
-#@pytest.mark.Gabo
+@pytest.mark.Smoke
 def test_tc_026_serv_pay_bar_cod():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7', 'Content-Type': 'application/json'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
     data = {
-        "sourceCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
-        "destinationCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
+        "sourceCustomerExternalId": userID,
+        "destinationCustomerExternalId": userID,
         "operationTypeId": 7,
         "performerUser": "marceu",
         "sourceAmount": 1702.5,
@@ -465,8 +465,8 @@ def test_tc_026_serv_pay_bar_cod():
             "paymentModeId": "48526074106900000351",
             "barcode": "057913405880003353280451910090000017025005",
             "amountType": "ABI",
-            "expirationDate": null,
-            "reference": null,
+            "expirationDate": None,
+            "reference": None,
             "hash": "8bbUMR9SprDIEg5jGyM3ZByHb8Hl7QouPK9SXxlpqU8",
             "type": "barcode"
         }
@@ -474,7 +474,8 @@ def test_tc_026_serv_pay_bar_cod():
 
     url = "https://api.qa.clave.cloud/core/operation"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 202
 
 @pytest.mark.Smoke
 def test_tc_027_comp_rec():
@@ -489,16 +490,16 @@ def test_tc_027_comp_rec():
     response_json = response.json()
     assert response.status_code == 200
 
-#@pytest.mark.Gabo
+@pytest.mark.Smoke
 def test_tc_028_pay_rec_phone():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7', 'Content-Type': 'application/json'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
     data = {
-        "sourceCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
-        "destinationCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
+        "sourceCustomerExternalId": userID,
+        "destinationCustomerExternalId": userID,
         "operationTypeId": 10,
         "performerUser": "marceu",
         "sourceAmount": 400.00,
@@ -518,18 +519,19 @@ def test_tc_028_pay_rec_phone():
 
     url = "https://api.qa.clave.cloud/core/operation"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 202
 
-#@pytest.mark.Gabo
+@pytest.mark.Smoke
 def test_tc_029_pay_rec_cable():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7', 'Content-Type': 'application/json'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
     data = {
-        "sourceCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
-        "destinationCustomerExternalId": "c27ed8c7-ed0e-4c7e-826e-a8e345190aa7",
+        "sourceCustomerExternalId": userID,
+        "destinationCustomerExternalId": userID,
         "operationTypeId": 10,
         "performerUser": "marceu",
         "sourceAmount": 500.00,
@@ -549,7 +551,8 @@ def test_tc_029_pay_rec_cable():
 
     url = "https://api.qa.clave.cloud/core/operation"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
+    assert  response.status_code == 202
 
 @pytest.mark.Smoke
 def test_tc_030_get_voucher():
