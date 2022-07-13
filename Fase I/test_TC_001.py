@@ -109,7 +109,6 @@ def test_tc_005_gen_cupon_ret():
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
 
-
 @pytest.mark.Smoke
 def test_tc_006_consultar_saldos():
     jotaw = obtener_jwt()
@@ -260,7 +259,6 @@ def test_tc_015_env_din():
     assert response.status_code == 202
 
     # response_json = requests.json()
-
 
 # tener en cuenta que el cbu debe cambiar en cada corrida
 @pytest.mark.Smoke
@@ -611,7 +609,7 @@ def test_tc_033_cons_card_fis():
     response_json = response.json()
     assert response.status_code == 200
 
-@pytest.mark.Gabo
+@pytest.mark.Smoke
 def test_tc_034_alta_tar_fis():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -642,12 +640,6 @@ def test_tc_034_alta_tar_fis():
     #return cardid
     #cardid == cardidi
     assert response.status_code == 201
-
-# #def imp_card():
-# @pytest.mark.Gabo
-# def test_oprint_card():
-#     print(cardid)
-
 
 @pytest.mark.Smoke
 def test_tc_035_consulta_tarjeta():
@@ -700,7 +692,7 @@ def test_tc_037_act_hab_tar():
 
     response = response.post(url, headers=headersdata, json=data)
 
-@pytest.mark.Gabo
+@pytest.mark.Smoke
 def test_tc_038_baj_tarj():
     jotaw = obtener_jwt()
     #cardid = test_tc_034_alta_tar_fis()
@@ -743,15 +735,15 @@ def test_tc_040_get_act_form():
     response_json = response.json()
     assert response.status_code == 400
 
-#@pytest.mark.Gabo
+@pytest.mark.Smoke
 def test_tc_041_cod_val_send_email():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7', 'Content-Type': 'application/json'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
     data = {
-        "to": "marcela@clave.com",
+        "to": "gcarballo@clave.com",
         "type": "EMAIL",
         "client": "CLAVE"
 
@@ -760,6 +752,7 @@ def test_tc_041_cod_val_send_email():
     url = "https://api.qa.clave.cloud/validation/send"
 
     response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 200
 
 @pytest.mark.Smoke
 def test_tc_042_cod_val_send_sms():
