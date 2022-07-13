@@ -654,22 +654,27 @@ def test_tc_035_consulta_tarjeta():
     response_json = response.json()
     assert response.status_code == 200
 
+#tendria que recorrer la lista de tarjetas y agarrarar la que este en status = Active
+#y de esa sacar los parametros necesarios para pausarla cardid, last four
+#en realidad ya tengo el card id, capturado tengo que agarrar
+#todo el registro de la tarjeta que tengao que ver
+
 #@pytest.mark.Gabo
 def test_tc_036_pausar_tarjeta():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
-                   'jwt': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDgyMzU5NTIsImlhdCI6MTY0NzYzMTE1MiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiYzI3ZWQ4YzctZWQwZS00YzdlLTgyNmUtYThlMzQ1MTkwYWE3fEFSRyJ9.LgSn30QPhkPhUjMSGLPYr8sksbM7QcGuyAe-egsqLdFuj32rd_BIJbsLlW8zaP8XEpmsaAu2_gc-vVjIQf5CgOvI8DnpUY_-q17gfBYONy0RJmiGIMIUgqjOjhEMLN75MDc-ETziCIEpn9D8YjkDl9J5DX5KHYWNbeSbvURhvAGADl8aWvvunHgVjOYeWd7luyYbjZQ7I_K2_V0UwLv45MScWHG-dIzYnUJDdNXtvkjgpZEnq9iwzkmb1Lb886FTpqA9jSQyKE4QO-LBvvDf121yhhPrj9ualBU8pd0tMBpp4IcvG0So312HWnUpyFW9tFFZ_kFdTX76JTQBPkph6UT81k1kJ6jFutMmJDJ7A5aITTFpxK8yi8-8_95tGOS2HxXRwa36A6bm-lZlx1vTEgFTaqd9RJcD3Bbori1TN1-d3R-Q2HcILLYHULQVVG2A0-oGP5X3042Dqta0Zk_2RauCNZ8aEfzo5HLvfSSjQgqiO4cSJpb0UXTfACWSD7-6zAJD-C249YEdteKrtytDItHwzQelNZAjmutaNjbKkAiHjEjkjghLSt8_PJWOJoM5NWVv_lt0JG_rYuKAF2wKNSm54bDCMO6GrCiMrbozqaTHA7JvUCzylNEjTBbXxzOoiQlQ0h7zyMJjkl6LPHtZGxqPnDETCNjL39poaCm35tA',
-                   'customerExternalId': 'c27ed8c7-ed0e-4c7e-826e-a8e345190aa7', 'Content-Type': 'application/json'}
+                   'jwt': jotaw,
+                   'customerExternalId': userID, 'Content-Type': 'application/json'}
 
     data = {
-        "cardId": "be8d9a60-0f2b-4ff4-960c-bbe19a77af3f",
+        "cardId": cardid,
         "lastFour": "2740",
         "status": "PAUSED",
         "cardType": "PHYSICAL",
         "startDate": "2022-01-21"
     }
 
-    url = "https://api.qa.clave.cloud/gateway/mocks/cards/be8d9a60-0f2b-4ff4-960c-bbe19a77af3f/pause"
+    url = f'https://api.qa.clave.cloud/cards/{cardid}/pause'
 
     response = response.post(url, headers=headersdata, json=data)
 
@@ -817,6 +822,38 @@ def test_tc_046_val_extid():
 
     response = requests.post(url, headers=headersdata, json=data)
     assert response.status_code == 200
+
+#@pytest.mark.Gabo
+#Ref Zephyr CORE-352
+def test_tc_047_deposito():
+    jotaw = obtener_jwt()
+    headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
+                   'Authorization': 'Basic YWRtaW46cGFzc3dvcmQ=',
+                   'jwt': jotaw,
+                   'customerExternalId': userID,
+                   'Content-Type': 'application/json'}
+
+    data = {
+      "sourceCustomerExternalId": userID,
+      "destinationCustomerExternalId": userID,
+      "operationTypeId": 1,
+      "performerUser": "marceu",
+      "sourceAmount": 10000,
+      "sourceCurrencyId": "ARS",
+      "destinationAmount": None,
+      "destinationCurrencyTypeId": None,
+      "transactionChannelTypeId": 1,
+      "params": {
+
+        }
+    }
+
+    url = "https://api.qa.clave.cloud/core/operation"
+
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 202
+
+
 
 #reversas
 #card 104 105 106 107 108 112
