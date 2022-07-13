@@ -824,7 +824,7 @@ def test_tc_046_val_extid():
     assert response.status_code == 200
 
 #@pytest.mark.Gabo
-#Ref Zephyr CORE-352
+#Ref Zephyr CORE-352 op_type1
 def test_tc_047_deposito():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -848,6 +848,36 @@ def test_tc_047_deposito():
         }
     }
 
+    url = "https://api.qa.clave.cloud/core/operation"
+
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 202
+
+
+@pytest.mark.Gabo
+#Ref Zephyr CORE-351 Deposito por transferencia
+def test_tc_048_deposito_por_transf():
+    jotaw = obtener_jwt()
+    headersdata = {'apikey': '0F5I6IhzXnZ6Qm5giwQ0IWiw94m2UsnK',
+                   'Authorization': 'Basic YWRtaW46cGFzc3dvcmQ=',
+                   'jwt': jotaw,
+                   'customerExternalId': userID,
+                   'Content-Type': 'application/json'}
+
+    data = {
+    "sourceCustomerExternalId": "19fc2657-85f4-c3fa-f74d-cf37e12e5db9",
+    "destinationCustomerExternalId": "19fc2657-85f4-c3fa-f74d-cf37e12e5db9",
+    "operationTypeId": 3,
+    "performerUser": "Gabriel",
+    "sourceAmount": 1500,
+    "sourceCurrencyId": "ARS",
+    "destinationAmount": None,
+    "destinationCurrencyTypeId": None,
+    "transactionChannelTypeId": 4,
+    "params": {
+    }
+
+}
     url = "https://api.qa.clave.cloud/core/operation"
 
     response = requests.post(url, headers=headersdata, json=data)
