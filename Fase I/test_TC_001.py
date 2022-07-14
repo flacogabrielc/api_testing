@@ -3,14 +3,18 @@ import json
 import requests
 import random
 
+# BD ! conexion para posterior validacion
+# 36 y 37 - faltan terminar pausar y habilitar tarjeta
+# ejecutar con infomre
+# ui!
+# Ver mails qa
+
 # ver como agregar una validacion que cuando el assert no es correcto imprima lo que devuelve
 # execute like pytest -s -v test_TC_Pruebas.py
 # with marks pytest -s -v -m Smoke test_TC_Pruebas.py
-# asserts
-# marks
-# ejecucion agrupacion
 # tener en cuenta que el externalID tiene que estar dado de alta en el -  idm para poder ejecutar este caso create_user(idm)
 # agregar los nuevos casos para el alta completa
+
 userID = '19fc2657-85f4-c3fa-f74d-cf37e12e5db9'
 cardid = ''
 
@@ -854,7 +858,7 @@ def test_tc_047_deposito():
     assert response.status_code == 202
 
 
-@pytest.mark.Gabo
+#@pytest.mark.Gabo
 #Ref Zephyr CORE-351 Deposito por transferencia
 def test_tc_048_deposito_por_transf():
     jotaw = obtener_jwt()
@@ -883,6 +887,66 @@ def test_tc_048_deposito_por_transf():
     response = requests.post(url, headers=headersdata, json=data)
     assert response.status_code == 202
 
+#@pytest.mark.Gabo
+#Ref Zephyr CORE-354 Envio de Dinero
+def test_tc_049_envio_dinero():
+    jotaw = obtener_jwt()
+    headersdata = {'apikey': '0F5I6IhzXnZ6Qm5giwQ0IWiw94m2UsnK',
+                   'Authorization': 'Basic YWRtaW46cGFzc3dvcmQ=',
+                   'jwt': jotaw,
+                   'customerExternalId': userID,
+                   'Content-Type': 'application/json'}
+    data = {
+            "sourceCustomerExternalId": "69bf92ce-8619-dccd-1c83-66d49d04faee",
+            "destinationCustomerExternalId": userID,
+            "operationTypeId": 5,
+            "performerUser": "marina",
+            "sourceAmount" : 100,
+            "destinationAmount": 100,
+            "sourceCurrencyId": "ARS",
+            "destinationCurrencyId": "ARS",
+            "transactionChannelTypeId": 1,
+            "params": {
+            "sourceClient": "Marina Ledesma",
+            "destinationClient": "Gabriel Carballo"
+            }
+            }
+
+    url = "https://api.qa.clave.cloud/core/operation"
+
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 202
+
+#tener en cuenta que debe obtener el operation id de una transaccion previa
+@pytest.mark.Gabo
+#Ref Zephyr CORE-353 Envio de Dinero
+def test_tc_050_reversa_operacion():
+    jotaw = obtener_jwt()
+    headersdata = {'apikey': '0F5I6IhzXnZ6Qm5giwQ0IWiw94m2UsnK',
+                   'Authorization': 'Basic YWRtaW46cGFzc3dvcmQ=',
+                   'jwt': jotaw,
+                   'customerExternalId': userID,
+                   'Content-Type': 'application/json'}
+
+    data = {
+            "sourceCustomerExternalId": userID,
+            "destinationCustomerExternalId": userID,
+            "operationTypeId": 6,
+            "performerUser": "mariL",
+            "sourceAmount": None,
+            "sourceCurrencyId": None,
+            "transactionChannelTypeId": 4,
+            "params": {
+                "operationId": 3001,
+                "comments": "la reverso"
+            }
+
+        }
+
+    url = "https://api.qa.clave.cloud/core/operation"
+
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 202
 
 
 #reversas
