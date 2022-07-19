@@ -1,11 +1,11 @@
-import boto3
-import sqlalchemy as db
+# import boto3
+# import sqlalchemy as db
 import psycopg2
 # from sqlalchemy.sql import select
-import sqlite3
+# import sqlite3
 
 # prueba con psycopg2
-def prueba_db():
+def db_gateway():
 
     try:
         connection = psycopg2.connect(
@@ -37,7 +37,7 @@ def prueba_db():
 #prueba_db()
 
 def prueba_con():
-    recursor = prueba_db()
+    recursor = db_gateway()
     recursor.execute("SELECT * FROM country WHERE id = 11")
     rows = recursor.fetchall()
     for row in rows:

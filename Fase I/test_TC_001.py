@@ -2,7 +2,7 @@ import pytest
 import json
 import requests
 import random
-import psycopg2
+#import psycopg2
 
 # BD ! conexion para posterior validacion
 # 36 y 37 - faltan terminar pausar y habilitar tarjeta
