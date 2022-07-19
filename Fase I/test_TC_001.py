@@ -120,9 +120,10 @@ def test_tc_004_gen_cupon_dep():
     print(aidi)
     recursor = db_gateway
     #voucherid = recursor.execute("SELECT * FROM voucher")
-    recursor.execute("SELECT * FROM voucher order by id DESC limit 1")
+    voucherid = recursor.execute("SELECT id FROM voucher order by id DESC limit 1")
     #cursor.execute("SELECT version()")
     #select * from voucher order by id desc limit 1
+    assert aidi == voucherid
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
 

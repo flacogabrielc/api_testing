@@ -7,6 +7,68 @@ import psycopg2
 #import random
 import pytest
 # prueba con psycopg2
+# conexion db bindadapter, gateway,
+
+def db_pluma():
+    try:
+        connection = psycopg2.connect(
+            host='db-aurora-postgres-shared-rw.qa.clave.cloud',
+            user='gabriel.carballo',
+            password='3ThzAThEwZsdw678',
+            database='pluma'
+        )
+        #query = gateway
+        print("Conexion exitosa")
+        cursor = connection.cursor()
+        cursor.execute("SELECT version()")
+        row = cursor.fetchone()
+        print(row)
+        cursor.execute("SELECT * FROM operation")
+        rows = cursor.fetchall()
+
+        for row in rows:
+            print(row)
+    except Exception as ex:
+        print(ex)
+
+    finally:
+        # connection.close()
+        # print("se finalizo la conexion")
+        return cursor
+
+
+
+
+
+def db_bindadapter():
+    try:
+        connection = psycopg2.connect(
+            host='db-aurora-postgres-shared-rw.qa.clave.cloud',
+            user='gabriel.carballo',
+            password='3ThzAThEwZsdw678',
+            database='bindadapter'
+        )
+        #query = gateway
+        print("Conexion exitosa")
+        cursor = connection.cursor()
+        cursor.execute("SELECT version()")
+        row = cursor.fetchone()
+        print(row)
+        cursor.execute("SELECT * FROM transfer")
+        rows = cursor.fetchall()
+
+        for row in rows:
+            print(row)
+    except Exception as ex:
+        print(ex)
+
+    finally:
+        # connection.close()
+        # print("se finalizo la conexion")
+        return cursor
+
+
+
 
 def db_gateway():
 
@@ -34,9 +96,6 @@ def db_gateway():
         # print("se finalizo la conexion")
         return cursor
 
-        # Equivalent to 'SELECT * FROM census'
-        #query = db.select([census])
-
 #prueba_db()
 
 def prueba_con():
@@ -46,8 +105,9 @@ def prueba_con():
     for row in rows:
         print(row)
 
-prueba_con()
-
+#prueba_con()
+#db_bindadapter()
+db_pluma()
 
 
 
