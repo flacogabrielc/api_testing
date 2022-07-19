@@ -7,7 +7,35 @@ import psycopg2
 #import random
 import pytest
 # prueba con psycopg2
-# conexion db bindadapter, gateway,
+# conexion db bindadapter, gateway, pluma, pomeloadapter
+
+def db_pomeloadapter():
+    try:
+        connection = psycopg2.connect(
+            host='db-aurora-postgres-shared-rw.qa.clave.cloud',
+            user='gabriel.carballo',
+            password='3ThzAThEwZsdw678',
+            database='pomeloadapter'
+        )
+        # query = gateway
+        print("Conexion exitosa")
+        cursor = connection.cursor()
+        cursor.execute("SELECT version()")
+        row = cursor.fetchone()
+        print(row)
+        cursor.execute("SELECT * FROM transactions")
+        rows = cursor.fetchall()
+
+        for row in rows:
+            print(row)
+    except Exception as ex:
+        print(ex)
+
+    finally:
+        # connection.close()
+        # print("se finalizo la conexion")
+        return cursor
+
 
 def db_pluma():
     try:
@@ -36,10 +64,6 @@ def db_pluma():
         # print("se finalizo la conexion")
         return cursor
 
-
-
-
-
 def db_bindadapter():
     try:
         connection = psycopg2.connect(
@@ -66,9 +90,6 @@ def db_bindadapter():
         # connection.close()
         # print("se finalizo la conexion")
         return cursor
-
-
-
 
 def db_gateway():
 
@@ -107,8 +128,8 @@ def prueba_con():
 
 #prueba_con()
 #db_bindadapter()
-db_pluma()
-
+#db_pluma()
+#db_pomeloadapter()
 
 
 
