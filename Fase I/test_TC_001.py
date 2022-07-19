@@ -2,7 +2,7 @@ import pytest
 import json
 import requests
 import random
-#import psycopg2
+import psycopg2
 
 # BD ! conexion para posterior validacion
 # 36 y 37 - faltan terminar pausar y habilitar tarjeta
@@ -34,8 +34,8 @@ def db_gateway():
         row = cursor.fetchone()
         print(row)
 
-        for row in rows:
-            print(row)
+        # for row in rows:
+        #     print(row)
     except Exception as ex:
         print(ex)
     finally:
@@ -113,8 +113,16 @@ def test_tc_004_gen_cupon_dep():
 
     url = "https://api.qa.clave.cloud/gateway/vouchers"
     response = requests.post(url, headers=headersdata, json=data)
-    print(response.json)
-
+    response_json = response.json()
+    #print(response.id)
+    print(response.status_code)
+    aidi = response_json['id']
+    print(aidi)
+    recursor = db_gateway
+    #voucherid = recursor.execute("SELECT * FROM voucher")
+    recursor.execute("SELECT * FROM voucher order by id DESC limit 1")
+    #cursor.execute("SELECT version()")
+    #select * from voucher order by id desc limit 1
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
 
@@ -943,7 +951,7 @@ def test_tc_049_envio_dinero():
     assert response.status_code == 202
 
 #tener en cuenta que debe obtener el operation id de una transaccion previa
-@pytest.mark.Gabo
+#@pytest.mark.Gabo
 #Ref Zephyr CORE-353 Envio de Dinero
 def test_tc_050_reversa_operacion():
     jotaw = obtener_jwt()
@@ -973,6 +981,7 @@ def test_tc_050_reversa_operacion():
     response = requests.post(url, headers=headersdata, json=data)
     assert response.status_code == 202
 
+db_gateway()
 
 #reversas
 #card 104 105 106 107 108 112

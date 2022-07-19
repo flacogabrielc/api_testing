@@ -3,11 +3,11 @@
 import psycopg2
 # from sqlalchemy.sql import select
 # import sqlite3
-import requests
-import random
+#import requests
+#import random
 import pytest
-
 # prueba con psycopg2
+
 def db_gateway():
 
     try:
@@ -62,31 +62,30 @@ prueba_con()
 #             database='gateway')
 
 
-userID = '19fc2657-85f4-c3fa-f74d-cf37e12e5db9'
-cardid = ''
-
-def db_gateway():
-
-    try:
-        connection = psycopg2.connect(
-            host='db-aurora-postgres-shared-rw.qa.clave.cloud',
-            user='gabriel.carballo',
-            password='3ThzAThEwZsdw678',
-            database='gateway'
-        )
-        print("Conexion exitosa")
-        cursor = connection.cursor()
-        cursor.execute("SELECT version()")
-        row = cursor.fetchone()
-        print(row)
-
-        for row in rows:
-            print(row)
-    except Exception as ex:
-        print(ex)
-    finally:
-        return cursor
-
+# userID = '19fc2657-85f4-c3fa-f74d-cf37e12e5db9'
+# cardid = ''
+#
+# def db_gateway():
+#
+#     try:
+#         connection = psycopg2.connect(
+#             host='db-aurora-postgres-shared-rw.qa.clave.cloud',
+#             user='gabriel.carballo',
+#             password='3ThzAThEwZsdw678',
+#             database='gateway'
+#         )
+#         print("Conexion exitosa")
+#         cursor = connection.cursor()
+#         cursor.execute("SELECT version()")
+#         row = cursor.fetchone()
+#         print(row)
+#
+#         for row in rows:
+#             print(row)
+#     except Exception as ex:
+#         print(ex)
+#     finally:
+#         return cursor
 
 def obtener_jwt():
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE', 'Content-Type': 'application/json'}
