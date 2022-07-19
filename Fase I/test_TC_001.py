@@ -19,6 +19,29 @@ import random
 userID = '19fc2657-85f4-c3fa-f74d-cf37e12e5db9'
 cardid = ''
 
+def db_gateway():
+
+    try:
+        connection = psycopg2.connect(
+            host='db-aurora-postgres-shared-rw.qa.clave.cloud',
+            user='gabriel.carballo',
+            password='3ThzAThEwZsdw678',
+            database='gateway'
+        )
+        print("Conexion exitosa")
+        cursor = connection.cursor()
+        cursor.execute("SELECT version()")
+        row = cursor.fetchone()
+        print(row)
+
+        for row in rows:
+            print(row)
+    except Exception as ex:
+        print(ex)
+    finally:
+        return cursor
+
+
 def obtener_jwt():
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE', 'Content-Type': 'application/json'}
 
@@ -75,7 +98,7 @@ def test_tc_003_cons_cliente():
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
 
-@pytest.mark.Smoke
+@pytest.mark.Gabo
 def test_tc_004_gen_cupon_dep():
     jotaw = obtener_jwt()
     headersdata = {'apikey': 'ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE',
@@ -90,6 +113,7 @@ def test_tc_004_gen_cupon_dep():
 
     url = "https://api.qa.clave.cloud/gateway/vouchers"
     response = requests.post(url, headers=headersdata, json=data)
+    print(response.json)
 
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
@@ -700,7 +724,7 @@ def test_tc_037_act_hab_tar():
 
     url = "https://api.qa.clave.cloud/gateway/mocks/cards/be8d9a60-0f2b-4ff4-960c-bbe19a77af3f/activate"
 
-    response = response.post(url, headers=headersdata, json=data)
+    response = requests.post(url, headers=headersdata, json=data)
 
 @pytest.mark.Smoke
 def test_tc_038_baj_tarj():
