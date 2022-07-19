@@ -20,20 +20,33 @@ def prueba_db():
         cursor.execute("SELECT version()")
         row = cursor.fetchone()
         print(row)
-        cursor.execute("SELECT * FROM country WHERE id = 11")
-        rows = cursor.fetchall()
+        # cursor.execute("SELECT * FROM country WHERE id = 11")
+        # rows = cursor.fetchall()
         for row in rows:
             print(row)
     except Exception as ex:
         print(ex)
     finally:
-        connection.close()
-        print("se finalizo la conexion")
+        # connection.close()
+        # print("se finalizo la conexion")
+        return cursor
 
         # Equivalent to 'SELECT * FROM census'
         #query = db.select([census])
 
-prueba_db()
+#prueba_db()
+
+def prueba_con():
+    recursor = prueba_db()
+    recursor.execute("SELECT * FROM country WHERE id = 11")
+    rows = recursor.fetchall()
+    for row in rows:
+        print(row)
+
+prueba_con()
+
+
+
 
 
 # ver como conectarse con sqlite
