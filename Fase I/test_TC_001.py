@@ -18,15 +18,17 @@ import psycopg2
 
 userID = '19fc2657-85f4-c3fa-f74d-cf37e12e5db9'
 cardid = ''
+gateway = 'gateway'
 
-def db_gateway():
+
+def db_connection(db):
 
     try:
         connection = psycopg2.connect(
             host='db-aurora-postgres-shared-rw.qa.clave.cloud',
             user='gabriel.carballo',
             password='3ThzAThEwZsdw678',
-            database='gateway'
+            database=db
         )
         print("Conexion exitosa")
         cursor = connection.cursor()
@@ -114,16 +116,15 @@ def test_tc_004_gen_cupon_dep():
     url = "https://api.qa.clave.cloud/gateway/vouchers"
     response = requests.post(url, headers=headersdata, json=data)
     response_json = response.json()
-    #print(response.id)
-    print(response.status_code)
+    #print(response.status_code)
     aidi = response_json['id']
-    print(aidi)
-    recursor = db_gateway
-    #voucherid = recursor.execute("SELECT * FROM voucher")
-    voucherid = recursor.execute("SELECT id FROM voucher order by id DESC limit 1")
-    #cursor.execute("SELECT version()")
-    #select * from voucher order by id desc limit 1
-    assert aidi == voucherid
+    #print(aidi)
+    recursor = db_connection(gateway)
+    recursor.execute("select id from voucher order by id desc limit 1")
+    voucherid = recursor.fetchone()
+    vou = voucherid[0]
+    #print(vou)
+    assert aidi == vou
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
 
@@ -982,7 +983,7 @@ def test_tc_050_reversa_operacion():
     response = requests.post(url, headers=headersdata, json=data)
     assert response.status_code == 202
 
-db_gateway()
+db_connection(gateway)
 
 #reversas
 #card 104 105 106 107 108 112

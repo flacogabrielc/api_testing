@@ -126,12 +126,12 @@ def prueba_con():
     for row in rows:
         print(row)
 
+
+
 #prueba_con()
 #db_bindadapter()
 #db_pluma()
 #db_pomeloadapter()
-
-
 
 # ver como conectarse con sqlite
 #prueba con sqlite3
