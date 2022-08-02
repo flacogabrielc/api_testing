@@ -4,7 +4,23 @@ import requests
 import random
 import psycopg2
 
-# BD ! conexion para posterior validacion
+# BD ! conexion para posterior validacion para:
+# Tabla OPERATION - STATUS FINISHED
+# los casos que tendríamos que validar si o si con la
+# BD es:
+# - depósito,
+# - retiro,
+# - retiro por transferencia,
+# - envío de dinero,
+# - pago de servicios,
+# -recargas,
+# - pago con tarjeta,
+# - extracash,
+# -extracción por cajero,
+# REVERSAS (extracash, compras, extracción por cajero)
+# digmos todo lo que genere una operación en Pluma
+# hay que validar contra el campo status de la tabla operation de Pluma
+
 # 36 y 37 - faltan terminar pausar y habilitar tarjeta
 # ejecutar con infomre
 # ui!
@@ -19,6 +35,9 @@ import psycopg2
 userID = '19fc2657-85f4-c3fa-f74d-cf37e12e5db9'
 cardid = ''
 gateway = 'gateway'
+pomelo = 'pomelo'
+bindadapter = 'bindadapter'
+pluma = 'pluma'
 
 
 def db_connection(db):
@@ -1371,3 +1390,12 @@ db_connection(gateway)
 # }
 # }' \
 #  'https://pomelo-adapter.qa.clave.cloud/transactions/adjustments/credit'
+
+# ago para sumar al mostro
+#
+# curl -i -X GET \
+#    -H "apikey:ltYkkzeoPZLhYtXjNpYpTt9cEFb9elNE" \
+#    -H "jwt:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTk0Mzk5MDksImlhdCI6MTY1OTQzODEwOSwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiMmRlOTdkZmMtMTk1NC0xNGI0LTk0MDktZTcwZjk2MTUzYWUyfEFSRyJ9.K8mf6Rgd6gtUGLxiz5aDZj2RRwSCLs8OCJiDvAKFfcggNEMMZSufwkNCLdIFQE7sEaYq3sbr-TKXyHZds6Wn7dohrHQnFp1AgV40mfAspupTeESiTQq8E00wBS_XBL0A6ECBK8yjwI0wLMrd7e-FS7U7TvVV_j_RLuDW3wFz_AxzwoZ_BeLjfBADMLiR3dIH45_RwWQ4J2BgssHbtLO6RZ1YJsHp6DKKKvoaFgHJfwUmHwVXahlq_1qua9uxcXBUU_YNmcdzyvFu9g6kn15PtXE89eaJOqpt2UBeYC9JZrtE8rPiXL82TnYK5zMXtZRHdwBP-lTqJgkdEV6PsxFGvHn9niipQdDiGTrfXGLz5Vhaldfxnk-pJbsvRkGURW7KqNmZi3yXwKiMjuI3qAz_GxQCnN5N9hQFILn3o4ZkybRu4DC4SEFXEmqmQx8H4QSZ1_Nxqwr9Aplx_P3AVapbOGJrQRSlXWDXiusbFIfCBhQwBJBEEyeJ_bZU8AbAnmqwaknCygxlOTCCT-HcAP8e3wDCGG_tyoY1GmwsjJrcZae7nzNYjdpH7i6B0_tYSNaWO53TFuEe8eWv82ogiLYDAioNTVeQYR3N5QlOzYBbxvhuwExFXIoDGqUAT1I3bputpobCWRbt8GD1hUsNe3tclj0cA0NQpkD8cxNLQ5FDDiw" \
+#    -H "customerExternalId:2de97dfc-1954-14b4-9409-e70f96153ae2" \
+#  'https://api.qa.clave.cloud/voucher/104'
+# capaz lo podemos sumar al monstruo
