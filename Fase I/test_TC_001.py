@@ -137,15 +137,19 @@ def test_tc_004_gen_cupon_dep():
     response_json = response.json()
     #print(response.status_code)
     aidi = response_json['id']
+    print(aidi)
     #print(aidi)
     recursor = db_connection(gateway)
     recursor.execute("select id from voucher order by id desc limit 1")
+    #recursor.execute("select currency_id from voucher order by id desc limit 1")
     voucherid = recursor.fetchone()
     vou = voucherid[0]
     #print(vou)
     assert aidi == vou
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
+
+#agregar 041, 042 para uso del voucher que no se repita continuamente
 
 @pytest.mark.Smoke
 def test_tc_005_gen_cupon_ret():
