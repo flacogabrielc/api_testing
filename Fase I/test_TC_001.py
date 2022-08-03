@@ -8,19 +8,22 @@ import psycopg2
 # Tabla OPERATION - STATUS FINISHED
 # los casos que tendríamos que validar si o si con la
 # BD es:
-# - depósito,
-# - retiro,
-# - retiro por transferencia,
-# - envío de dinero,
-# - pago de servicios,
-# -recargas,
-# - pago con tarjeta,
-# - extracash,
-# -extracción por cajero,
+# - recargas, ?
+# - pago con tarjeta,???
+# - retiro, ?
+# - extracash, - operaciones . pomelo
+# - extracción por cajero,
+
+# - depósito, 47 -> 50
+# - retiro por transferencia, 18
+# - envío de dinero, 015
+# - pago de servicios, 21 -> 26
+
 # REVERSAS (extracash, compras, extracción por cajero)
-# digmos todo lo que genere una operación en Pluma
+# digamos todo lo que genere una operación en Pluma
 # hay que validar contra el campo status de la tabla operation de Pluma
 
+# LUEGO :
 # 36 y 37 - faltan terminar pausar y habilitar tarjeta
 # ejecutar con infomre
 # ui!
@@ -1403,3 +1406,208 @@ db_connection(gateway)
 #    -H "customerExternalId:2de97dfc-1954-14b4-9409-e70f96153ae2" \
 #  'https://api.qa.clave.cloud/voucher/104'
 # capaz lo podemos sumar al monstruo
+
+
+# URGENTE TO ADD.
+#
+# Pago con tarjeta
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "x-apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:/pomelo-adapter/transactions/authorizations" \
+#    -H "x-idempotency-key:test-idempotency-key-60" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444966" \
+#    -d \
+# '{
+# "transaction": {
+# "id": "ctx-27WnxhnJ8787hV1XvLib322",
+# "country_code": "ARG",
+# "type": "PURCHASE",
+# "point_type": "ECOMMERCE",
+# "entry_mode": "MANUAL",
+# "origin": "DOMESTIC",
+# "local_date_time" : "2022-04-08T19:09:16",
+# "original_transaction_id": null
+# },
+# "merchant": {
+# "id": "111111111111111",
+# "mcc": "5045",
+# "address": null,
+# "name": "Computer Software"
+# },
+# "card": {
+# "id": "crd-2Bl8c6cgJcqRsElCdIXgOQgj2G4",
+# "product_type": "PREPAID",
+# "provider": "MASTERCARD",
+# "last_four": "5437"
+# },
+# "user": {
+# "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+# },
+# "amount": {
+# "local": {
+# "total": 10.0,
+# "currency": "ARS"
+# },
+# "transaction": {
+# "total": 990.0,
+# "currency": "ARS"
+# },
+# "settlement": {
+# "total": 11.0,
+# "currency": "USD"
+# },
+# "details": [
+# {
+# "type": "BASE",
+# "currency": "ARS",
+# "amount": 990.0,
+# "name": "BASE"
+# }
+# ]
+# }
+# }' \
+#  'https://pomelo-adapter.qa.clave.cloud/transactions/authorizations'
+# extracción por cajero
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "x-apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:/pomelo-adapter/transactions/authorizations" \
+#    -H "x-idempotency-key:test-idempotency-key-70" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444965" \
+#    -d \
+# '{
+# "transaction": {
+# "id": "ctx-test-withdrawal-120",
+# "country_code": "ARG",
+# "type": "WITHDRAWAL",
+# "point_type": "POS",
+# "entry_mode": "MAG_STRIPE",
+# "origin": "DOMESTIC",
+# "local_date_time" : "2022-07-07T12:45:00",
+# "original_transaction_id": null
+# },
+# "merchant": {
+# "id": "ID-Code06      ",
+# "mcc": "6011",
+# "address": null,
+# "name": "Automated Cash Disb"
+# },
+# "card": {
+# "id": "crd-2BjHfef1FQ2ilvvBky3cxgyc8jk",
+# "product_type": "PREPAID",
+# "provider": "MASTERCARD",
+# "last_four": "8912"
+# },
+# "user": {
+# "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+# },
+# "amount": {
+# "local": {
+# "total": 200.0,
+# "currency": "ARS"
+# },
+# "transaction": {
+# "total": 10000.0,
+# "currency": "ARS"
+# },
+# "settlement": {
+# "total": 8.0,
+# "currency": "USD"
+# },
+# "details": [
+# {
+# "type": "BASE",
+# "currency": "ARS",
+# "amount": 1000000000.0,
+# "name": "BASE"
+# }
+# ]
+# }
+# }' \
+#  'https://pomelo-adapter.qa.clave.cloud/transactions/authorizations'
+# Extracash
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:/pomelo-adapter/transactions/authorizations" \
+#    -H "x-idempotency-key:test-idempotency-key-15" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444963" \
+#    -d \
+# '{
+# "transaction": {
+# "id": "ctx-200kXoaEJLNzcsvNxY1pmBO7GHH",
+# "country_code": "ARG",
+# "type": "EXTRACASH",
+# "point_type": "POS",
+# "entry_mode": "MAG_STRIPE",
+# "origin": "DOMESTIC",
+# "local_date_time": "2022-07-07T12:45:00",
+# "original_transaction_id": null
+# },
+# "merchant": {
+# "id": "ABC123TESTMTF19",
+# "mcc": "5999",
+# "address": null,
+# "name": "Misc Retail"
+# },
+# "card": {
+# "id": "crd-2BjHfef1FQ2ilvvBky3cxgyc8jk",
+# "product_type": "PREPAID",
+# "provider": "MASTERCARD",
+# "last_four": "8912"
+# },
+# "user": {
+# "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+# },
+# "amount": {
+# "local": {
+# "total": 1350.0,
+# "currency": "ARS"
+# },
+# "transaction": {
+# "total": 135000000.0,
+# "currency": "ARS"
+# },
+# "settlement": {
+# "total": 150.0,
+# "currency": "USD"
+# },
+# "details": [
+# {
+# "type": "EXTRACASH",
+# "currency": "ARS",
+# "amount": 500.0,
+# "name": "EXTRACASH"
+# },
+# {
+# "type": "BASE",
+# "currency": "ARS",
+# "amount": 13000.0,
+# "name": "BASE"
+# }
+# ]
+# }
+# }' \
+#  'https://pomelo-adapter.qa.clave.cloud/transactions/authorizations'
+# retiro cual?
+
+
+# ahí te paso por si no lo tenés a ese endpoint
+# curl -i -X POST \
+#    -H "Content-Type:application/json" \
+#    -H "jwt:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTQwMjQ4NzYsImlhdCI6MTY1NDAyMzA3NiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiZjI4NzlkZmQtY2UwYy1hZDg1LWIzYjgtN2M4NGI4NmEwY2JkfEFSRyJ9.em03muc9yNedZlrmsPKQVKI4dBQCo7rYXL5o_ELmIj523a1VMgjHeWPGpxJfBgTQisa8DuJ3fUs39HpVO_-XVFvQ0gngbPuFUFWaC-MGOVVs1mhwAGcFjEyfpuufQ7HgGtMn4QSGH_fMdKmmlXea1TbQUBmIwQIevq4vuyvZkJ7KapadVK1J8_opi3CdvYP82wUNi3nH3_IdOu8cPfTA8lf-a0vPDfHkoO90xM4JWicq3h4qbhiGHcLcUuCaRZc69kVWq4nZ4TYliI01ODsXCVhneNZHVPH-zOvrUgeninaDTs87MR8d7SGZ1tSIyeNXDIP9UtVU-WlWUhRAJv3XK-N8F48qSKJ0qFZ6uviZP6_EjjOy6gKTpZOWdTEqfSbR8xN0a2IHpMSlN9j_sOipoaJk12MM88ZR1418g5XRvEF0ebX_DQf99IcSKtAy0k11W-su6-QHMJkQMkHuJYe1fLcuDUz3zJawHn9InJIDmk7QdH78Uoq06MHNijH-L4ip3-AJ9HLkPoDThCdTFKclIYTCc3Em0meLWJu_O9O9-jyklo6_rrIQJX6qQXHcW38qaotd76ijfuoZYTUEBlhbYXlzamhdzgxiqoirSLp8rN7ake6dzBSqWTYpYADLrAjov6XeMx3LcuF0_A3ZOIr8VHypI7UD6bslY229kQp56cA" \
+#    -H "apikey:47leXLWBdQEyViVMrqXrk7ORFIJWWFaP" \
+#    -H "customerExternalId:f2879dfd-ce0c-ad85-b3b8-7c84b86a0cbd" \
+#    -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
+#    -d \
+# '{
+#     "customerExternalId": "fe96d723-e386-502a-26b8-6d6539cfe2bc",
+#     "type": "WITHDRAWAL",
+#     "transactionChannelTypeId": 2,
+#     "currencyCode": "ARS"
+# }' \
+#  'https://gateway.qa.clave.cloud/vouchers'
