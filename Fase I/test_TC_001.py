@@ -1017,7 +1017,7 @@ def test_tc_050_reversa_operacion():
 #    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
 #    -H "x-timestamp:1649444966" \
 
-@pytest.mark.Gabo
+#@pytest.mark.Gabo
 def test_tc_053_pago_con_tarjeta():
     headersdata = {'Content-Type': 'application/json',
                    'x-apikey': 'ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=',
@@ -1070,6 +1070,70 @@ def test_tc_053_pago_con_tarjeta():
                     "type": "BASE",
                     "currency": "ARS",
                     "amount": 990.0,
+                    "name": "BASE"
+                  }
+                ]
+              }
+            }
+
+    url = "https://pomelo-adapter.qa.clave.cloud/transactions/authorizations"
+
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 200
+
+@pytest.mark.Gabo
+def test_tc_054_extraccion_por_cajero():
+    headersdata = {'Content-Type': 'application/json',
+                   'x-apikey': 'ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=',
+                   'x-endpoint': '/pomelo-adapter/transactions/authorizations',
+                   'x-idempotency-key': 'test-idempotency-key-101',
+                   'x-signature': 'hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=',
+                   'x-timestamp': '1649444965'}
+
+    data = {
+              "transaction": {
+                "id": "ctx-test-withdrawal-123",
+                "country_code": "ARG",
+                "type": "WITHDRAWAL",
+                "point_type": "POS",
+                "entry_mode": "MAG_STRIPE",
+                "origin": "DOMESTIC",
+                "local_date_time" : "2022-07-07T12:45:00",
+                "original_transaction_id": None
+              },
+              "merchant": {
+                "id": "ID-Code06",
+                "mcc": "6011",
+                "address": None,
+                "name": "Automated Cash Disb"
+              },
+              "card": {
+                "id": "crd-2BjHfef1FQ2ilvvBky3cxgyc8jk",
+                "product_type": "PREPAID",
+                "provider": "MASTERCARD",
+                "last_four": "8912"
+              },
+              "user": {
+                "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+              },
+              "amount": {
+                "local": {
+                  "total": 200.0,
+                  "currency": "ARS"
+                },
+                "transaction": {
+                  "total": 10000.0,
+                  "currency": "ARS"
+                },
+                "settlement": {
+                  "total": 8.0,
+                  "currency": "USD"
+                },
+                "details": [
+                  {
+                    "type": "BASE",
+                    "currency": "ARS",
+                    "amount": 1000000000.0,
                     "name": "BASE"
                   }
                 ]
