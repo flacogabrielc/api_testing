@@ -1081,7 +1081,7 @@ def test_tc_053_pago_con_tarjeta():
     response = requests.post(url, headers=headersdata, json=data)
     assert response.status_code == 200
 
-@pytest.mark.Gabo
+#@pytest.mark.Gabo
 def test_tc_054_extraccion_por_cajero():
     headersdata = {'Content-Type': 'application/json',
                    'x-apikey': 'ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=',
@@ -1145,7 +1145,75 @@ def test_tc_054_extraccion_por_cajero():
     response = requests.post(url, headers=headersdata, json=data)
     assert response.status_code == 200
 
+@pytest.mark.Gabo
+def test_tc_055_extracash():
+    headersdata = {'Content-Type': 'application/json',
+                   'x-apikey': 'ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=',
+                   'x-endpoint': '/pomelo-adapter/transactions/authorizations',
+                   'x-idempotency-key': 'test-idempotency-key-17',
+                   'x-signature': 'hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=',
+                   'x-timestamp': '1649444963'}
 
+    data = {
+              "transaction": {
+                "id": "ctx-200kXoaEJLNzcsvNxY1pmBO9GHU",
+                "country_code": "ARG",
+                "type": "EXTRACASH",
+                "point_type": "POS",
+                "entry_mode": "MAG_STRIPE",
+                "origin": "DOMESTIC",
+                "local_date_time": "2022-07-07T12:45:00",
+                "original_transaction_id": None
+              },
+              "merchant": {
+                "id": "ABC123TESTMTF19",
+                "mcc": "5999",
+                "address": None,
+                "name": "Misc Retail"
+              },
+              "card": {
+                "id": "crd-2BjHfef1FQ2ilvvBky3cxgyc8jk",
+                "product_type": "PREPAID",
+                "provider": "MASTERCARD",
+                "last_four": "8912"
+              },
+              "user": {
+                "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+              },
+              "amount": {
+                "local": {
+                  "total": 1350.0,
+                  "currency": "ARS"
+                },
+                "transaction": {
+                  "total": 135000000.0,
+                  "currency": "ARS"
+                },
+                "settlement": {
+                  "total": 150.0,
+                  "currency": "USD"
+                },
+                "details": [
+                  {
+                    "type": "EXTRACASH",
+                    "currency": "ARS",
+                    "amount": 500.0,
+                    "name": "EXTRACASH"
+                  },
+                  {
+                    "type": "BASE",
+                    "currency": "ARS",
+                    "amount": 13000.0,
+                    "name": "BASE"
+                  }
+                ]
+              }
+            }
+
+    url = "https://pomelo-adapter.qa.clave.cloud/transactions/authorizations"
+
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 200
 
 db_connection(gateway)
 
