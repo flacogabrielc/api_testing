@@ -1009,6 +1009,80 @@ def test_tc_050_reversa_operacion():
     response = requests.post(url, headers=headersdata, json=data)
     assert response.status_code == 202
 
+
+#    -H "Content-Type:application/json" \
+#    -H "x-apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+#    -H "x-endpoint:/pomelo-adapter/transactions/authorizations" \
+#    -H "x-idempotency-key:test-idempotency-key-60" \
+#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+#    -H "x-timestamp:1649444966" \
+
+@pytest.mark.Gabo
+def test_tc_053_pago_con_tarjeta():
+    headersdata = {'Content-Type': 'application/json',
+                   'x-apikey': 'ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=',
+                   'x-endpoint': '/pomelo-adapter/transactions/authorizations',
+                   'x-idempotency-key': 'test-idempotency-key-01',
+                   'x-signature': 'hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=',
+                   'x-timestamp': '1649444966'}
+
+    data = {
+              "transaction": {
+                "id": "ctx-27WnxhnJ8787hV1XvLib327",
+                "country_code": "ARG",
+                "type": "PURCHASE",
+                "point_type": "ECOMMERCE",
+                "entry_mode": "MANUAL",
+                "origin": "DOMESTIC",
+                "local_date_time" : "2022-04-08T19:09:16",
+                "original_transaction_id": None
+              },
+              "merchant": {
+                "id": "111111111111111",
+                "mcc": "5045",
+                "address": None,
+                "name": "Computer Software"
+              },
+              "card": {
+                "id": "crd-2Bl8c6cgJcqRsElCdIXgOQgj2G4",
+                "product_type": "PREPAID",
+                "provider": "MASTERCARD",
+                "last_four": "5437"
+              },
+              "user": {
+                "id": "usr-25QOzhZMAHVnN5FyvJTyxAKhsWU"
+              },
+              "amount": {
+                "local": {
+                  "total": 10.0,
+                  "currency": "ARS"
+                },
+                "transaction": {
+                  "total": 990.0,
+                  "currency": "ARS"
+                },
+                "settlement": {
+                  "total": 11.0,
+                  "currency": "USD"
+                },
+                "details": [
+                  {
+                    "type": "BASE",
+                    "currency": "ARS",
+                    "amount": 990.0,
+                    "name": "BASE"
+                  }
+                ]
+              }
+            }
+
+    url = "https://pomelo-adapter.qa.clave.cloud/transactions/authorizations"
+
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 200
+
+
+
 db_connection(gateway)
 
 #reversas
@@ -1410,7 +1484,8 @@ db_connection(gateway)
 
 # URGENTE TO ADD.
 #
-# Pago con tarjeta
+# Pago con tarjeta:
+
 # curl -i -X POST \
 #    -H "Content-Type:application/json" \
 #    -H "x-apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
@@ -1418,6 +1493,7 @@ db_connection(gateway)
 #    -H "x-idempotency-key:test-idempotency-key-60" \
 #    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
 #    -H "x-timestamp:1649444966" \
+
 #    -d \
 # '{
 # "transaction": {
@@ -1469,6 +1545,9 @@ db_connection(gateway)
 # }
 # }' \
 #  'https://pomelo-adapter.qa.clave.cloud/transactions/authorizations'
+
+
+
 # extracción por cajero
 # curl -i -X POST \
 #    -H "Content-Type:application/json" \
@@ -1528,15 +1607,16 @@ db_connection(gateway)
 # }
 # }' \
 #  'https://pomelo-adapter.qa.clave.cloud/transactions/authorizations'
+
 # Extracash
 # curl -i -X POST \
-#    -H "Content-Type:application/json" \
-#    -H "apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
-#    -H "x-endpoint:/pomelo-adapter/transactions/authorizations" \
-#    -H "x-idempotency-key:test-idempotency-key-15" \
-#    -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
-#    -H "x-timestamp:1649444963" \
-#    -d \
+# -H "Content-Type:application/json" \
+# -H "apikey:ohbH43UkLG9QHBVv8gKvbp03aTU3fvi+faikEqwIHL8=" \
+# -H "x-endpoint:/pomelo-adapter/transactions/authorizations" \
+# -H "x-idempotency-key:test-idempotency-key-15" \
+# -H "x-signature:hmac-sha256 JfUl0Hfp12n9U/cnBIYMXx0WEZbi3LT06OlQAGqat8g=" \
+# -H "x-timestamp:1649444963" \
+# -d \
 # '{
 # "transaction": {
 # "id": "ctx-200kXoaEJLNzcsvNxY1pmBO7GHH",
@@ -1593,21 +1673,26 @@ db_connection(gateway)
 # }
 # }' \
 #  'https://pomelo-adapter.qa.clave.cloud/transactions/authorizations'
+
+
+
 # retiro cual?
 
 
 # ahí te paso por si no lo tenés a ese endpoint
 # curl -i -X POST \
-#    -H "Content-Type:application/json" \
-#    -H "jwt:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTQwMjQ4NzYsImlhdCI6MTY1NDAyMzA3NiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiZjI4NzlkZmQtY2UwYy1hZDg1LWIzYjgtN2M4NGI4NmEwY2JkfEFSRyJ9.em03muc9yNedZlrmsPKQVKI4dBQCo7rYXL5o_ELmIj523a1VMgjHeWPGpxJfBgTQisa8DuJ3fUs39HpVO_-XVFvQ0gngbPuFUFWaC-MGOVVs1mhwAGcFjEyfpuufQ7HgGtMn4QSGH_fMdKmmlXea1TbQUBmIwQIevq4vuyvZkJ7KapadVK1J8_opi3CdvYP82wUNi3nH3_IdOu8cPfTA8lf-a0vPDfHkoO90xM4JWicq3h4qbhiGHcLcUuCaRZc69kVWq4nZ4TYliI01ODsXCVhneNZHVPH-zOvrUgeninaDTs87MR8d7SGZ1tSIyeNXDIP9UtVU-WlWUhRAJv3XK-N8F48qSKJ0qFZ6uviZP6_EjjOy6gKTpZOWdTEqfSbR8xN0a2IHpMSlN9j_sOipoaJk12MM88ZR1418g5XRvEF0ebX_DQf99IcSKtAy0k11W-su6-QHMJkQMkHuJYe1fLcuDUz3zJawHn9InJIDmk7QdH78Uoq06MHNijH-L4ip3-AJ9HLkPoDThCdTFKclIYTCc3Em0meLWJu_O9O9-jyklo6_rrIQJX6qQXHcW38qaotd76ijfuoZYTUEBlhbYXlzamhdzgxiqoirSLp8rN7ake6dzBSqWTYpYADLrAjov6XeMx3LcuF0_A3ZOIr8VHypI7UD6bslY229kQp56cA" \
-#    -H "apikey:47leXLWBdQEyViVMrqXrk7ORFIJWWFaP" \
-#    -H "customerExternalId:f2879dfd-ce0c-ad85-b3b8-7c84b86a0cbd" \
-#    -H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
-#    -d \
+# H "Content-Type:application/json" \
+# H "jwt:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTQwMjQ4NzYsImlhdCI6MTY1NDAyMzA3NiwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiZjI4NzlkZmQtY2UwYy1hZDg1LWIzYjgtN2M4NGI4NmEwY2JkfEFSRyJ9.em03muc9yNedZlrmsPKQVKI4dBQCo7rYXL5o_ELmIj523a1VMgjHeWPGpxJfBgTQisa8DuJ3fUs39HpVO_-XVFvQ0gngbPuFUFWaC-MGOVVs1mhwAGcFjEyfpuufQ7HgGtMn4QSGH_fMdKmmlXea1TbQUBmIwQIevq4vuyvZkJ7KapadVK1J8_opi3CdvYP82wUNi3nH3_IdOu8cPfTA8lf-a0vPDfHkoO90xM4JWicq3h4qbhiGHcLcUuCaRZc69kVWq4nZ4TYliI01ODsXCVhneNZHVPH-zOvrUgeninaDTs87MR8d7SGZ1tSIyeNXDIP9UtVU-WlWUhRAJv3XK-N8F48qSKJ0qFZ6uviZP6_EjjOy6gKTpZOWdTEqfSbR8xN0a2IHpMSlN9j_sOipoaJk12MM88ZR1418g5XRvEF0ebX_DQf99IcSKtAy0k11W-su6-QHMJkQMkHuJYe1fLcuDUz3zJawHn9InJIDmk7QdH78Uoq06MHNijH-L4ip3-AJ9HLkPoDThCdTFKclIYTCc3Em0meLWJu_O9O9-jyklo6_rrIQJX6qQXHcW38qaotd76ijfuoZYTUEBlhbYXlzamhdzgxiqoirSLp8rN7ake6dzBSqWTYpYADLrAjov6XeMx3LcuF0_A3ZOIr8VHypI7UD6bslY229kQp56cA" \
+# H "apikey:47leXLWBdQEyViVMrqXrk7ORFIJWWFaP" \
+# H "customerExternalId:f2879dfd-ce0c-ad85-b3b8-7c84b86a0cbd" \
+# H "Authorization:Basic YWRtaW46cGFzc3dvcmQ=" \
+
+# \
 # '{
-#     "customerExternalId": "fe96d723-e386-502a-26b8-6d6539cfe2bc",
-#     "type": "WITHDRAWAL",
-#     "transactionChannelTypeId": 2,
-#     "currencyCode": "ARS"
+#  "customerExternalId": "fe96d723-e386-502a-26b8-6d6539cfe2bc",
+# "type": "WITHDRAWAL",
+# "transactionChannelTypeId": 2,
+# "currencyCode": "ARS"
 # }' \
-#  'https://gateway.qa.clave.cloud/vouchers'
+#'https://gateway.qa.clave.cloud/vouchers'
+# Frances0170117920000000889685CBU

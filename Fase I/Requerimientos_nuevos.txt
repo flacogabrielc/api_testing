@@ -1,0 +1,29 @@
+endpoints de tarjetas:
+1-Alta de tarjeta - CARD_CREATION (física, virtual),
+2-Habilitación de tarjeta - CARD_ENABLEMENT (física),
+3-Pausado de tarjeta -  CARD_BLOCK (física, virtual),
+4-Despausado de tarjeta -  CARD_UNBLOCK (física, virtual),
+5-Baja de tarjeta - CARD_DISABLEMENT (física),
+6-Cambio de pin -  CARD_PIN_RESET (física),
+7-Modificación de tarjeta - CARD_UPDATE (física, virtual),
+8-Modificación de dirección de tarjeta -  SHIPMENT_ADDRESS_UPDATE (física)
+9-La tabla a crear se llamará card_event y tendrá los siguientes campos:
+10-card_holder_id =  id de usuario de Pomelo
+11-card_id = id de tarjeta Pomelo
+12-card_type  = tipo de tarjeta (virtual /fisica)
+13-card_last_four = últimos 4 dígitos de la tarjeta
+14-event_type = el evento logueado  (Valores posibles: CARD_CREATION, CARD_ENABLEMENT, CARD_BLOCK, CARD_UNBLOCK, CARD_DISABLEMENT, CARD_PIN_RESET, CARD_UPDATE, SHIPMENT_ADDRESS_UPDATE
+15-event_date_time = fecha y hora del evento
+16-Los casos de usos que se podrán probar desde la app son los siguientes:
+17-Alta de tarjeta (física, virtual),
+18-Habilitación de tarjeta (física),
+19-Pausado de tarjeta  (física, virtual),
+20-Despausado de tarjeta (física, virtual),
+21-Baja de tarjeta (física)
+
+53 - pago con tarjeta
+54 - extraccion por cajero
+extracash
+recargas
+retiro
+-- logs
