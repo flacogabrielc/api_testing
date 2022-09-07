@@ -1215,6 +1215,34 @@ def test_tc_055_extracash():
     response = requests.post(url, headers=headersdata, json=data)
     assert response.status_code == 200
 
+@pytest.mark.Gabo
+def test_tc_070_pluma_op18():
+    headersdata = { 'Content-Type': 'application/json',
+                       'customerExternalId': 'chatruc',
+                       'jwt': "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzMwOTQ1MTAsImlhdCI6MTYzMjQ4OTcxMCwiaXNzIjoiY2xhdmUuY29tIiwic3ViIjoiY2hhdHJ1YyJ9.KKp45XnHZh6JbsxPaR2C52lEFNzzA-qJO_saebJpTwogtaA557Z8MdJ5SFwABW2B8o3iWBAJtDD3t4njj77-bZynSpr_FHEt_Xwz8kG1dBhWYoyc2rPSdTxzXKPWEMpWBTm-eGOTKaKxV5OCjsBesHGZ22L1osrmPn32wGCw_PInv1luRjc9wwwVQAy7WsdOk1JwgMV-Oyzl4W4PnOZrECDE-gpSq6l9nZsJX1amIcb5boVTyqN8i-6qKMuzt_gMOHmFSlw6DnOaxa4_kI6ldjAYKK2KrCB09dYNzsDbXluuRJcVPWUmxCdxTx9Z620yWFvwnpv0yTGzZpzZnioMobC0o25qRM0CdE9wnXXw6U7DfI3PX4mQjoN0pG9r6n20GyNvCF9HSvxT56ffueDN2Y2G8uGLD0lyPZguZiLwNcvVyKVIhx_iMBMxiCCmwA21Vy3Zb6B9z8JihulziK7wrOcvmwV7dSVXHoFBvYKYdOgC8BP-ZJg8m8WCQi_-9_DtWwZyraYtIxZkWE3zgq7Bq_VnL3Mrkev6Bkc3ToONoooB0w8Pu9sRg9wATP2rSCNo9upv2FqqQCcXRIHVob1nqD_FKM6du2vUi6nxgZ-MR8HpuVD53DB5igkW0kF3-YgeKqvIO0CNjLvGZaOUevYLhOtny_5096Of5q76Pam81b0",
+                       'Authorization': 'Basic YWRtaW46cGFzc3dvcmQ=',
+                       'apikey': "6KzvGaDHWtoni1zExtBEqIaNUx49fA8h"}
+
+    data = {
+        "sourceCustomerExternalId": "f2879dfd-ce0c-ad85-b3b8-7c84b86a0cbd",
+        "destinationCustomerExternalId": "f2879dfd-ce0c-ad85-b3b8-7c84b86a0cbd",
+        "operationTypeId": 18,
+        "performerUser": "marina",
+        "sourceAmount": 60.89,
+        "sourceCurrencyId": "ARS",
+        "destinationAmount": None,
+        "destinationCurrencyTypeId": None,
+        "transactionChannelTypeId": 1,
+        "params": {
+        }
+    }
+
+
+    url= "https://api.qa.clave.cloud/core/operation"
+
+    response = requests.post(url, headers=headersdata, json=data)
+    assert response.status_code == 202
+
 db_connection(gateway)
 
 #reversas
