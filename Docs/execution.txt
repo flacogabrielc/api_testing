@@ -58,3 +58,8 @@ https://docs.qameta.io/allure/
 
 como hacer merges
 https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request
+
+
+git
+git commit -m "mensaje"
+git push origin main
