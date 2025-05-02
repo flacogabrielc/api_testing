@@ -1,12 +1,9 @@
-++ python
-+++pytest
-++++cucumber
 -m tags (marks)
 
 pytest -s -v -m Smoke
 pytest -s -v -m Smoke test_TC_001.py
 
- pytest -s -v -m "Smoke" Fase\ I
+pytest -s -v -m "Smoke" Fase\ I
 hasta el 34 por ahora ok
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -38,7 +35,6 @@ pip freeze | xargs pip uninstall -y
 
 pip uninstall paquete
 
-
 pytest: error: unrecognized arguments: --html=report.html
 en este error tener en cuenta que pueden ser 2 cosas,
 1 o no esta instaldo con pip el paquete o esta mal alguna refrencia
@@ -63,3 +59,17 @@ https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorp
 git
 git commit -m "mensaje"
 git push origin main
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+//playwright
+//alluere
+//selenium 
+//++ python
++++pytest
+++++cucumber
+//jenkins 
+//Blue Ocean
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
